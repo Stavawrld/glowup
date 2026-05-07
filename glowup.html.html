@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlowUp - 14 lat</title>
+  <style>
+    body { font-family: Arial; background: #121212; color: #fff; margin: 0; padding: 15px; }
+    h1 { color: #00ff88; text-align: center; }
+    .tab { display: none; }
+    .active { display: block; }
+    button { 
+      background: #00ff88; color: black; border: none; padding: 12px; margin: 8px 0; 
+      border-radius: 10px; font-size: 16px; width: 100%; font-weight: bold;
+    }
+    .workout { background: #1e1e1e; padding: 15px; border-radius: 12px; margin: 12px 0; }
+    input, textarea { width: 100%; padding: 10px; margin: 8px 0; border-radius: 8px; border: none; }
+  </style>
+</head>
+<body>
+
+  <h1>💪 GlowUp</h1>
+  <p style="text-align:center; color:#aaa;">14 lat • 164cm • 54kg</p>
+
+  <!-- Menu -->
+  <button onclick="showTab('home')">🏠 Strona główna</button>
+  <button onclick="showTab('workout')">🏋️ Trening</button>
+  <button onclick="showTab('progress')">📈 Postępy</button>
+  <button onclick="showTab('habits')">✅ Nawyk</button>
+
+  <!-- Strona główna -->
+  <div id="home" class="tab active">
+    <h2>Dzisiaj</h2>
+    <div class="workout">
+      <p><strong>Nie zapomnij o treningu!</strong></p>
+      <p>4x w tygodniu → Pn, Wt, Cz, Sb</p>
+    </div>
+    <button onclick="alert('Motywacja: Za 3 miesiące będziesz wyglądał o niebo lepiej 🔥')">Motywacja na dziś</button>
+  </div>
+
+  <!-- Trening -->
+  <div id="workout" class="tab">
+    <h2>🏋️ Trening (4x tydzień)</h2>
+    
+    <div class="workout">
+      <h3>Rozgrzewka</h3>
+      <p>Skakanka 5-8 minut</p>
+    </div>
+
+    <div class="workout">
+      <h3>Główna część</h3>
+      <ul>
+        <li>Podciąganie na drążku (negatywy) - 4 serie</li>
+        <li>Pompki klasyczne - 4 serie</li>
+        <li>Pompki diamentowe - 3 serie</li>
+        <li>Przysiady bułgarskie - 3 serie na nogę</li>
+        <li>Wykroki - 3 serie</li>
+        <li>Plank - 4 serie (cel: 60+ sekund)</li>
+      </ul>
+    </div>
+
+    <div class="workout">
+      <h3>Cardio na koniec</h3>
+      <p>Górki w lesie lub skakanka 15-20 minut</p>
+    </div>
+  </div>
+
+  <!-- Postępy -->
+  <div id="progress" class="tab">
+    <h2>📈 Moje postępy</h2>
+    <p>Waga: <input type="text" id="waga" placeholder="np. 54.5 kg"></p>
+    <button onclick="saveWeight()">Zapisz wagę</button>
+    <p id="weightHistory" style="font-size:14px;"></p>
+  </div>
+
+  <!-- Nawyki -->
+  <div id="habits" class="tab">
+    <h2>✅ Codzienne nawyki</h2>
+    <input type="checkbox"> Trening dzisiaj<br><br>
+    <input type="checkbox"> Minimum 4 posiłki z białkiem<br><br>
+    <input type="checkbox"> Dużo wody<br><br>
+    <input type="checkbox"> Minimum 8h snu<br><br>
+    <input type="checkbox"> Ogranicz słodycze<br><br>
+  </div>
+
+<script>
+  function showTab(tabName) {
+    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+    document.getElementById(tabName).classList.add('active');
+  }
+
+  function saveWeight() {
+    let waga = document.getElementById('waga').value;
+    if (waga) {
+      let history = localStorage.getItem('weightHistory') || '';
+      let date = new Date().toLocaleDateString('pl-PL');
+      history = date + ": " + waga + "kg\n" + history;
+      localStorage.setItem('weightHistory', history);
+      document.getElementById('weightHistory').innerText = history;
+      alert('Waga zapisana!');
+    }
+  }
+
+  // Wczytaj historię wagi
+  document.getElementById('weightHistory').innerText = localStorage.getItem('weightHistory') || 'Brak wpisów jeszcze';
+</script>
+
+</body>
+</html>
